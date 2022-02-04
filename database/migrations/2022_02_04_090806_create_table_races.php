@@ -17,6 +17,7 @@ class CreateTableRaces extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('slug', 100);
+            $table->integer('price');
             $table->timestamps();
             $table->softDeletes();
         });
