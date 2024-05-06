@@ -97,7 +97,7 @@ class TrackingController extends Controller
           [
             'success' => true,
             'message' => 'Success submitting user location',
-            'data' => $res,
+            'data' => $this->model->findByEmail($email),
           ]
         );
       } else {
