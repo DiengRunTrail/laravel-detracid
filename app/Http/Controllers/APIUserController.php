@@ -24,11 +24,10 @@ class APIUserController extends Controller
 
     $results = json_decode($result, true)['result'];
 
-
     $md5password = md5($password);
 
     foreach ($results as $user) {
-      if ($user['username'] == $username) {
+      if ($user['username'] == $username || $user['email'] == $username) {
         if ($user['password'] == $md5password) {
           return response()->json(
             [
