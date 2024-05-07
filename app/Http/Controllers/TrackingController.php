@@ -15,10 +15,14 @@ class TrackingController extends Controller
     $this->model = new UserLocation();
   }
 
-  public function index()
+  public function index(Request $req)
   {
-    $locations = UserLocation::all();
-
+    $category = $req->query->get("category");
+    if ($category) {
+      $locations = $this->model->findByCategory($category);
+    } else {
+      $locations = UserLocation::all();
+    }
     return response()->json(
       [
         'success' => true,

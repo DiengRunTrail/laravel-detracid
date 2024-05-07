@@ -25,4 +25,9 @@ class UserLocation extends Model
   {
     return $this->where('email', $email)->first();
   }
+
+  public function findByCategory($category)
+  {
+    return $this->where('category', $category)->get();
+  }
 }
