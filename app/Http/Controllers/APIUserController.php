@@ -33,14 +33,18 @@ class APIUserController extends Controller
             [
               "status" => "success",
               "message" => "login success",
-              "data" => $user,
+              // "data" => $user,
+              "data" => [
+                'username' => $user['username'],
+                'email' => $user['email'],
+              ],
             ]
           );
         } else {
           return response()->json([
             "status" => "failed",
             "message" => "username or password is incorrect",
-          ]);
+          ], 400);
         }
       }
     }
