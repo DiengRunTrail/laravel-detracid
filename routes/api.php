@@ -20,7 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
   return $request->user();
 });
 
+// user routes
 Route::post('/login', [APIUserController::class, 'login'])->name('api-login');
+Route::get('/profile/{id}', [APIUserController::class, 'profile'])->name('api-user-profile');
 
 // user location
 Route::get('/locations', [TrackingController::class, 'index'])->name('user-location');
