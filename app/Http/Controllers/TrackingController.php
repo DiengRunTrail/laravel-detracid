@@ -163,7 +163,7 @@ class TrackingController extends Controller
           "success" => false,
           "message" => "Allowed category that can be use is just 42_km and 75_km",
         ],
-        401
+        400
       );
     }
 
@@ -177,7 +177,7 @@ class TrackingController extends Controller
             "success" => false,
             "message" => "Allowed checkpoint that can be use is just CP2_Prau",
           ],
-          401
+          400
         );
       }
     } else {
@@ -187,7 +187,7 @@ class TrackingController extends Controller
             "success" => false,
             "message" => "Allowed checkpoint that can be use is just CP2_P_Bismo, CP1_P_Prau and CP3_P_G_Kembang",
           ],
-          401
+          400
         );
       }
     }
@@ -209,7 +209,7 @@ class TrackingController extends Controller
       return response()->json([
         "success" => false,
         "message" => "Failed submitting checkpoint or user already submit this checkpoint",
-      ], 401);
+      ], 400);
     }
 
     return response()->json([
