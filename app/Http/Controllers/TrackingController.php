@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserCheckpoint;
 use App\Models\UserLocation;
 use Illuminate\Http\Request;
 
@@ -9,10 +10,12 @@ class TrackingController extends Controller
 {
 
   public $model;
+  public $checkpointModel;
 
   public function __construct()
   {
     $this->model = new UserLocation();
+    $this->checkpointModel = new UserCheckpoint();
   }
 
   public function index(Request $req)
@@ -129,5 +132,103 @@ class TrackingController extends Controller
         );
       }
     }
+  }
+
+  public function submitCheckpoint(Request $req)
+  {
+    $category = $req->input('category');
+    $user_id = $req->input('user_id');
+    $checkpoint_name = $req->input('checkpoint_name');
+
+    $allFields = ['category', 'user_id', 'checkpoint_name'];
+
+    foreach ($allFields as $field) {
+      if ($req->input($field) == null) {
+        return response()->json(
+          [
+            'success' => false,
+            'message' => 'Field ' . $field . ' is required',
+          ],
+          401
+        );
+      }
+    }
+
+    $allowed_categories = ["42_km", "75_km"];
+
+    // check if category is allowed
+    if (!in_array($category, $allowed_categories)) {
+      return response()->json(
+        [
+          "success" => false,
+          "message" => "Allowed category that can be use is just 42_km and 75_km",
+        ],
+        401
+      );
+    }
+
+    $allowed42kmCheckpoint = ['CP2_Prau'];
+    $allowed75kmCheckpoint = ['CP2_P_Bismo', 'CP1_P_Prau', 'CP3_P_G_Kembang'];
+
+    if ($category === '42_km') {
+      if (!in_array($checkpoint_name, $allowed42kmCheckpoint)) {
+        return response()->json(
+          [
+            "success" => false,
+            "message" => "Allowed checkpoint that can be use is just CP2_Prau",
+          ],
+          401
+        );
+      }
+    } else {
+      if (!in_array($checkpoint_name, $allowed75kmCheckpoint)) {
+        return response()->json(
+          [
+            "success" => false,
+            "message" => "Allowed checkpoint that can be use is just CP2_P_Bismo, CP1_P_Prau and CP3_P_G_Kembang",
+          ],
+          401
+        );
+      }
+    }
+
+    // check if user has registered
+    $userController = new APIUserController();
+    $user = $userController->getRegisteredUser($user_id);
+
+    if (!$user) {
+      return response()->json([
+        "success" => false,
+        "message" => "User not registered",
+      ], 401);
+    }
+
+    $submitCheckpoint = $this->checkpointModel->insertCheckpoint($user_id, $checkpoint_name);
+
+    if (!$submitCheckpoint) {
+      return response()->json([
+        "success" => false,
+        "message" => "Failed submitting checkpoint or user already submit this checkpoint",
+      ], 401);
+    }
+
+    return response()->json([
+      "success" => true,
+      "message" => "Success submitting checkpoint",
+      "data" => $submitCheckpoint,
+    ], 201);
+  }
+
+  public function getCheckpoints(Request $req)
+  {
+    $userId = $req->input('user_id');
+
+    $checkpoints = $this->checkpointModel->getUserCheckpoints($userId);
+
+    return response()->json([
+      "success" => true,
+      "message" => "Success getting checkpoints",
+      "data" => $checkpoints,
+    ], 200);
   }
 }

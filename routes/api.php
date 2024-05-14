@@ -27,3 +27,7 @@ Route::get('/profile/{id}', [APIUserController::class, 'profile'])->name('api-us
 // user location
 Route::get('/locations', [TrackingController::class, 'index'])->name('user-location');
 Route::post('/submit', [TrackingController::class, 'submit'])->name('add-user-location');
+
+// checkpoint
+// Route::get('/checkpoints', [TrackingController::class, 'getCheckpoints'])->name('get-user-checkpoint');
+Route::post('/checkpoints', [TrackingController::class, 'submitCheckpoint'])->name('submit-checkpoint');

@@ -92,4 +92,27 @@ class APIUserController extends Controller
       "message" => "user profile not found",
     ], 404);
   }
+
+  public function getRegisteredUser($userId)
+  {
+    $ch = curl_init();
+    $url = "https://api.diengcalderarace.com/peserta";
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+
+    $results = json_decode($result, true)['result'];
+
+    foreach ($results as $user) {
+      if ($user['id_user'] === $userId) {
+        return $user;
+      }
+    }
+
+    return null;
+  }
 }
