@@ -28,6 +28,6 @@ class AddTableUserCheckpoints extends Migration
    */
   public function down()
   {
-    //
+    Schema::dropIfExists('users_checkpoints');
   }
 }

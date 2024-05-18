@@ -20,9 +20,9 @@ class AddUsersLocationTable extends Migration
       $table->string('category', 255)->nullable(false);
       $table->string('fullname', 255)->nullable(false);
       $table->string('email', 255);
-      $table->float('latitude');
-      $table->float('longitude');
-      $table->float('altitude');
+      $table->string('latitude');
+      $table->string('longitude');
+      $table->string('altitude');
       $table->timestamps();
     });
   }
@@ -34,6 +34,6 @@ class AddUsersLocationTable extends Migration
    */
   public function down()
   {
-    //
+    Schema::dropIfExists('users_location');
   }
 }
