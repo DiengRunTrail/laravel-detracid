@@ -44,7 +44,7 @@ class APIUserController extends Controller
         } else {
           return response()->json([
             "status" => "failed",
-            "message" => "username or password is incorrect",
+            "message" => "Username or password is incorrect",
           ], 400);
         }
       }
