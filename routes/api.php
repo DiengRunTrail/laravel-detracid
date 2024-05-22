@@ -29,5 +29,5 @@ Route::get('/locations', [TrackingController::class, 'index'])->name('user-locat
 Route::post('/submit', [TrackingController::class, 'submit'])->name('add-user-location');
 
 // checkpoint
-// Route::get('/checkpoints', [TrackingController::class, 'getCheckpoints'])->name('get-user-checkpoint');
+Route::get('/checkpoints', [TrackingController::class, 'getCheckpoints'])->name('get-user-checkpoint');
 Route::post('/checkpoints', [TrackingController::class, 'submitCheckpoint'])->name('submit-checkpoint');

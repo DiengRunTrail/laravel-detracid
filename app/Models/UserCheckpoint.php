@@ -36,6 +36,6 @@ class UserCheckpoint extends Model
 
   public function getUserCheckpoints($userId)
   {
-    return $this->get();
+    return $this->where('user_id', $userId)->get();
   }
 }
