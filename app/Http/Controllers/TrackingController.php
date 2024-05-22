@@ -154,7 +154,7 @@ class TrackingController extends Controller
       }
     }
 
-    $allowed_categories = ["42_km", "75_km"];
+    $allowed_categories = ["5_km", "42_km", "75_km"];
 
     // check if category is allowed
     if (!in_array($category, $allowed_categories)) {
@@ -170,26 +170,24 @@ class TrackingController extends Controller
     $allowed42kmCheckpoint = ['CP2_Prau'];
     $allowed75kmCheckpoint = ['CP2_P_Bismo', 'CP1_P_Prau', 'CP3_P_G_Kembang'];
 
-    if ($category === '42_km') {
-      if (!in_array($checkpoint_name, $allowed42kmCheckpoint)) {
-        return response()->json(
-          [
-            "success" => false,
-            "message" => "Allowed checkpoint that can be use is just CP2_Prau",
-          ],
-          400
-        );
-      }
-    } else {
-      if (!in_array($checkpoint_name, $allowed75kmCheckpoint)) {
-        return response()->json(
-          [
-            "success" => false,
-            "message" => "Allowed checkpoint that can be use is just CP2_P_Bismo, CP1_P_Prau and CP3_P_G_Kembang",
-          ],
-          400
-        );
-      }
+    if ($category === '42_km' && !in_array($checkpoint_name, $allowed42kmCheckpoint)) {
+      return response()->json(
+        [
+          "success" => false,
+          "message" => "Allowed checkpoint that can be use is just CP2_Prau",
+        ],
+        400
+      );
+    }
+
+    if ($category === '75_km' && !in_array($checkpoint_name, $allowed75kmCheckpoint)) {
+      return response()->json(
+        [
+          "success" => false,
+          "message" => "Allowed checkpoint that can be use is just CP2_P_Bismo, CP1_P_Prau and CP3_P_G_Kembang",
+        ],
+        400
+      );
     }
 
     // check if user has registered
