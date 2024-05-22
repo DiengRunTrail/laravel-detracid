@@ -60,7 +60,7 @@ class TrackingController extends Controller
 
     // check if category must be matched with "10_km", "21_km", "42_km" or "75_km"
 
-    $valid_category = ["10_km", "21_km", "42_km", "75_km"];
+    $valid_category = ["5_km", "10_km", "21_km", "42_km", "75_km"];
 
     if (!in_array($category, $valid_category)) {
       return response()->json(
