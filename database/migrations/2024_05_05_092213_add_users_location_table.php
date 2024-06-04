@@ -14,15 +14,15 @@ class AddUsersLocationTable extends Migration
   public function up()
   {
     // add user location table
-    Schema::create('users_location', function (Blueprint $table) {
+    Schema::create('tbl_user_locations', function (Blueprint $table) {
       $table->id();
-      $table->string('uid', 255)->unique();
-      $table->string('category', 255)->nullable(false);
-      $table->string('fullname', 255)->nullable(false);
-      $table->string('email', 255);
-      $table->string('latitude');
-      $table->string('longitude');
-      $table->string('altitude');
+      $table->string('uid', 100)->collation('utf8mb4_general_ci');
+      $table->string('category', 100)->nullable(false)->collation('utf8mb4_general_ci');
+      $table->string('fullname', 100)->nullable(false)->collation('utf8mb4_general_ci');
+      $table->string('email', 100)->collation('utf8mb4_general_ci');
+      $table->string('latitude')->collation('utf8mb4_general_ci');
+      $table->string('longitude')->collation('utf8mb4_general_ci');
+      $table->string('altitude')->collation('utf8mb4_general_ci');
       $table->timestamps();
     });
   }
@@ -34,6 +34,6 @@ class AddUsersLocationTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('users_location');
+    Schema::dropIfExists('tbl_user_locations');
   }
 }
