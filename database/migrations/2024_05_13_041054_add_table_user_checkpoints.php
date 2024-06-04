@@ -13,7 +13,7 @@ class AddTableUserCheckpoints extends Migration
    */
   public function up()
   {
-    Schema::create('users_checkpoints', function (Blueprint $table) {
+    Schema::create('tbl_user_checkpoints', function (Blueprint $table) {
       $table->id();
       $table->unsignedBigInteger('user_id');
       $table->string('checkpoint');
@@ -28,6 +28,6 @@ class AddTableUserCheckpoints extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('users_checkpoints');
+    Schema::dropIfExists('tbl_user_checkpoints');
   }
 }

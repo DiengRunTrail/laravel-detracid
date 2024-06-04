@@ -24,8 +24,14 @@ class TrackingController extends Controller
     if ($category) {
       $locations = $this->model->findByCategory($category);
     } else {
-      $locations = UserLocation::all();
+      $locations = $this->model->join('tbl_user', 'tbl_user.id_user', '=', 'tbl_user_locations.uid')
+          ->join('tbl_bib', 'tbl_bib.email', '=', 'tbl_user.email')
+          ->select(['tbl_bib.bib', 'tbl_user.id_user', 'tbl_user.email','tbl_user.first_name', 'tbl_user.last_name', 
+          'tbl_user_locations.latitude', 'tbl_user_locations.longitude', 'tbl_user_locations.altitude',
+          'tbl_user_locations.updated_at'])
+          ->get();
     }
+    
     return response()->json(
       [
         'success' => true,
@@ -71,7 +77,6 @@ class TrackingController extends Controller
         400
       );
     }
-
 
     $user = $this->model->findByEmail($email);
 
