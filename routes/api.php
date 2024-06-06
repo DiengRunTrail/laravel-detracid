@@ -31,3 +31,5 @@ Route::post('/submit', [TrackingController::class, 'submit'])->name('add-user-lo
 // checkpoint
 Route::get('/checkpoints', [TrackingController::class, 'getCheckpoints'])->name('get-user-checkpoint');
 Route::post('/checkpoints', [TrackingController::class, 'submitCheckpoint'])->name('submit-checkpoint');
+
+Route::get('/download/mobile', [APIUserController::class, 'downloadApp'])->name('download.app');

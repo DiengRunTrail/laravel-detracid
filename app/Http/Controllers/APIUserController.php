@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserRegistration;
+use Detection\MobileDetect;
 use Illuminate\Http\Request;
 
 class APIUserController extends Controller
@@ -97,5 +98,17 @@ class APIUserController extends Controller
     }
 
     return null;
+  }
+
+  public function downloadApp() 
+  {
+    $device = new MobileDetect();
+
+    if ($device->isiOS() || $device->isiPad()) {
+      # code...
+      return redirect()->to('https://testflight.apple.com/join/LCUAQYUv');
+    }
+
+    return redirect()->to('https://play.google.com/store/apps/details?id=com.diengcalderarace.dcr_mobile');
   }
 }
